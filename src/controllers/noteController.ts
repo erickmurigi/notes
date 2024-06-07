@@ -24,17 +24,17 @@ export const createNote = async (req: Request, res: Response) => {
     };
     
     res.status(201).json(newNote);
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 };
 
 export const getNotes = async (req: Request, res: Response) => {
   try {
-    const pool = await sql.connect();
+    const pool = await sql.connect(config);
     const result = await pool.request().query('SELECT * FROM Notes;');
     res.status(200).json(result.recordset);
-  } catch (err) {
+  } catch (err:any) {
     res.status(500).json({ error: err.message });
   }
 };
@@ -42,7 +42,7 @@ export const getNotes = async (req: Request, res: Response) => {
 export const getNoteById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const pool = await sql.connect();
+    const pool = await sql.connect(config as sql.config);
     const result = await pool.request()
       .input('id', sql.Int, id)
       .query('SELECT * FROM Notes WHERE Id = @id;');
@@ -52,7 +52,7 @@ export const getNoteById = async (req: Request, res: Response) => {
     }
     
     res.status(200).json(result.recordset[0]);
-  } catch (err) {
+  } catch (err:any) {
     res.status(500).json({ error: err.message });
   }
 };
@@ -61,7 +61,7 @@ export const updateNote = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { title, content } = req.body;
-    const pool = await sql.connect();
+    const pool = await sql.connect(config as sql.config);
     const result = await pool.request()
       .input('id', sql.Int, id)
       .input('title', sql.VarChar, title)
@@ -73,7 +73,7 @@ export const updateNote = async (req: Request, res: Response) => {
     }
     
     res.status(200).json({ message: 'Note updated successfully' });
-  } catch (err) {
+  } catch (err:any) {
     res.status(500).json({ error: err.message });
   }
 };
@@ -81,7 +81,7 @@ export const updateNote = async (req: Request, res: Response) => {
 export const deleteNote = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const pool = await sql.connect();
+    const pool = await sql.connect(config as sql.config);
     const result = await pool.request()
       .input('id', sql.Int, id)
       .query('DELETE FROM Notes WHERE Id = @id;');
@@ -91,7 +91,7 @@ export const deleteNote = async (req: Request, res: Response) => {
     }
     
     res.status(200).json({ message: 'Note deleted successfully' });
-  } catch (err: Error) {
+  } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 };
