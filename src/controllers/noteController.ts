@@ -38,16 +38,19 @@ export const createNote = async (req: Request, res: Response) => {
     res.status(500).json({ error: err.message });
   }
 };
-
+// Function to get all notes from the database
 export const getNotes = async (req: Request, res: Response) => {
   try {
     const pool = await sql.connect(config);
     const result = await pool.request().query('SELECT * FROM Notes;');
-    res.status(200).json(result.recordset);
+    const notes = result.recordset; // Extract notes from the query result
+    
+    res.status(200).json(notes);
   } catch (err:any) {
     res.status(500).json({ error: err.message });
   }
 };
+// Function to get a note by ID
 
 export const getNoteById = async (req: Request, res: Response) => {
   try {
