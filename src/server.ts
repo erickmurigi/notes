@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import sql from 'mssql';
-import config from './dbconfig';
+import config from '../dbconfig';
 import dotenv from 'dotenv';
 
 dotenv.config();
