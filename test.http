@@ -1,5 +1,5 @@
 # Test creating a new note
-POST http://localhost:3000/api/notes
+POST http://localhost:4000/api/notes
 Content-Type: application/json
 
 {
@@ -9,17 +9,17 @@ Content-Type: application/json
 
 ###
 # Test fetching all notes
-GET http://localhost:3000/api/notes
+GET http://localhost:4000/api/notes
 
 ###
 # Test fetching a single note by ID
 # Replace :id with an actual note ID after creating a note
-GET http://localhost:3000/api/notes/:id
+GET http://localhost:4000/api/notes/:id
 
 ###
 # Test updating a note by ID
 # Replace :id with an actual note ID after creating a note
-PUT http://localhost:3000/api/notes/:id
+PUT http://localhost:4000/api/notes/:id
 Content-Type: application/json
 
 {
@@ -30,4 +30,4 @@ Content-Type: application/json
 ###
 # Test deleting a note by ID
 # Replace :id with an actual note ID after creating a note
-DELETE http://localhost:3000/api/notes/:id
+DELETE http://localhost:4000/api/notes/:id
