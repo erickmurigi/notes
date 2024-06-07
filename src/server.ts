@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import sql from 'mssql';
 import config from '../dbconfig';
 import dotenv from 'dotenv';
+import { createNote, getNotes, getNoteById, updateNote, deleteNote } from './controllers/noteController';
 
 dotenv.config();
 
@@ -30,11 +31,12 @@ app.get('/test-connection', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Database connection failed', details: error.message });
   }
 });
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
-app.post('/notes', createNoteController);
+// Define the routes
+app.post('/notes', createNote);
+app.get('/notes', getNotes);
+app.get('/notes/:id', getNoteById);
+app.put('/notes/:id', updateNote);
+app.delete('/notes/:id', deleteNote);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
