@@ -8,7 +8,7 @@ import noteRoutes from './routes/noteRoutes';  // Import the routes
 dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 app.use(bodyParser.json());
 
