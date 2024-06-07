@@ -1,7 +1,17 @@
 import { Request, Response } from 'express';
 import sql from 'mssql';
 import { Note } from '../models/notes';
-import config from '../dbconfig';
+;
+
+// Add your database configurations here
+const config = {
+    user: process.env.DB_USER || '',
+    password: process.env.DB_PASSWORD || '',
+    server: process.env.DB_SERVER || '',
+    database: process.env.DB_DATABASE || '',
+};
+
+export default config;
 
 // Function to connect to the database
 const connectToDB = async () => {
