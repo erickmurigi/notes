@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import sql from 'mssql';
-import config from '../dbconfig';
 import dotenv from 'dotenv';
-import { createNote, getNotes, getNoteById, updateNote, deleteNote } from './controllers/noteController';
+import config from '../dbconfig';
+import noteRoutes from './routes/noteRoutes';  // Import the routes
 
 dotenv.config();
 
@@ -31,12 +31,9 @@ app.get('/test-connection', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Database connection failed', details: error.message });
   }
 });
-// Define the routes
-app.post('/notes', createNote);
-app.get('/notes', getNotes);
-app.get('/notes/:id', getNoteById);
-app.put('/notes/:id', updateNote);
-app.delete('/notes/:id', deleteNote);
+
+// Use the routes
+app.use('/api', noteRoutes);  // Use the router with the '/api' prefix
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
